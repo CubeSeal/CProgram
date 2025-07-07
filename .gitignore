@@ -1,3 +1,5 @@
 # bin folder
-bin/*
+bin/
 
+# Object files
+*.o
