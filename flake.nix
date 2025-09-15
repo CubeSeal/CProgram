@@ -17,9 +17,23 @@
             };
         in
         {
-            packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+            packages.x86_64-linux.default = pkgs.stdenv.mkDerivation {
+                pname = "main";
+                version = "1.0.0";
+                src = self; # The source is the flake itself
 
-            packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+                buildInputs = [
+                    pkgs.gcc
+                    pkgs.gnumake
+                ];
+
+                installPhase = ''
+                    runHook preInstall
+                    mkdir -p $out/bin
+                    cp bin/main $out/bin/
+                    runHook postInstall
+                    '';
+            };
 
             devShells.${system}.default = pkgs.mkShell {
                 packages = with pkgs; [
