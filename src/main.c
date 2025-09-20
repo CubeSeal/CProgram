@@ -8,6 +8,7 @@ typedef struct {
     float field2;
 } MyStruct;
 
+// This program calculates the square roots of the first 200 integers.
 int main() {
 
     float result[200] = {0};
